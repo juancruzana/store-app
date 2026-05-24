@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import { useCartStore } from "@/features/cart/store/useCartStore";
+import { formatPrice } from "@/utils/formatPrice";
 import type { Producto } from "../types";
 
 interface ProductCardProps {
@@ -7,33 +9,45 @@ interface ProductCardProps {
 
 export function ProductCard({ producto }: ProductCardProps) {
   const addItem = useCartStore((s) => s.addItem);
+  const navigate = useNavigate();
 
   return (
-    <div className="rounded-lg border p-4 shadow-sm hover:shadow-md transition">
-      {producto.imagen_url && (
-        <img
-          src={producto.imagen_url}
-          className="w-full h-40 object-cover rounded"
-          alt={producto.nombre}
-        />
-      )}
-      <h3 className="font-semibold mt-2">{producto.nombre}</h3>
-      <p className="text-sm text-gray-600">{producto.descripcion}</p>
-      <p className="text-lg font-bold mt-2">${parseFloat(producto.precio).toFixed(2)}</p>
-      <button
-        disabled={!producto.disponible}
-        onClick={() =>
-          addItem({
-            producto_id: producto.id,
-            nombre: producto.nombre,
-            precio: parseFloat(producto.precio),
-            imagen_url: producto.imagen_url,
-          })
-        }
-        className="mt-2 w-full bg-blue-600 text-white rounded py-2 disabled:opacity-50"
-      >
-        {producto.disponible ? "Agregar al carrito" : "No disponible"}
-      </button>
+    <div
+      className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition cursor-pointer"
+      onClick={() => navigate(`/productos/${producto.id}`)}
+    >
+      <div className="h-32 bg-gray-100 overflow-hidden">
+        {producto.imagen_url ? (
+          <img
+            src={producto.imagen_url}
+            alt={producto.nombre}
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <div className="h-full w-full flex items-center justify-center text-5xl">🍽️</div>
+        )}
+      </div>
+      <div className="p-3">
+        <h3 className="text-sm font-semibold text-gray-900 leading-tight">{producto.nombre}</h3>
+        <p className="text-base font-bold text-indigo-600 mt-0.5">
+          {formatPrice(producto.precio)}
+        </p>
+        <button
+          disabled={!producto.disponible}
+          onClick={(e) => {
+            e.stopPropagation();
+            addItem({
+              producto_id: producto.id,
+              nombre: producto.nombre,
+              precio: parseFloat(producto.precio),
+              imagen_url: producto.imagen_url,
+            });
+          }}
+          className="mt-2 w-full bg-indigo-600 text-white text-xs py-1.5 rounded-xl hover:bg-indigo-700 disabled:opacity-50 transition font-semibold"
+        >
+          {producto.disponible ? "Agregar" : "No disponible"}
+        </button>
+      </div>
     </div>
   );
 }
