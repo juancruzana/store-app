@@ -1,5 +1,3 @@
-import AppRouter from "./router/AppRouter";
-
 export default function App() {
-  return <AppRouter />;
+  return <span className="text-3xl font-bold text-indigo-600" />;
 }
