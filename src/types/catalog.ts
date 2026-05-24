@@ -28,7 +28,7 @@ export interface Producto {
   id: number;
   nombre: string;
   descripcion: string | null;
-  precio: string; // el backend lo serializa como string
+  precio: string;
   disponible: boolean;
   stock_cantidad: number;
   imagen_url: string | null;

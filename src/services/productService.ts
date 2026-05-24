@@ -1,5 +1,5 @@
 import { api } from "@/lib/axios";
-import type { Producto, ProductoFilters, PaginatedResponse } from "../types";
+import type { Producto, ProductoFilters, PaginatedResponse } from "@/types/catalog";
 
 export const productService = {
   list: async (filters: ProductoFilters = {}): Promise<PaginatedResponse<Producto>> => {

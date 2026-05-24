@@ -1,5 +1,5 @@
 import { api } from "@/lib/axios";
-import type { Categoria, PaginatedResponse } from "../types";
+import type { Categoria, PaginatedResponse } from "@/types/catalog";
 
 export const categoryService = {
   list: async (): Promise<PaginatedResponse<Categoria>> => {

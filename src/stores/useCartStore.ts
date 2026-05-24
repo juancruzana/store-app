@@ -3,8 +3,8 @@ import { persist } from "zustand/middleware";
 
 interface CartItem {
   producto_id: number;
-  nombre: string;       // duplicado en el carrito (snapshot del cliente)
-  precio: number;       // precio al momento de agregar (snapshot)
+  nombre: string;
+  precio: number;
   cantidad: number;
   imagen_url?: string | null;
 }
@@ -58,7 +58,7 @@ export const useCartStore = create<CartState>()(
       count: () => get().items.reduce((acc, i) => acc + i.cantidad, 0),
     }),
     {
-      name: "foodstore-cart", // clave en localStorage
+      name: "foodstore-cart",
       version: 1,
     }
   )

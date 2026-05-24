@@ -1,5 +1,5 @@
 import { api } from "@/lib/axios";
-import type { Pedido, PedidoCreateRequest } from "../types";
+import type { Pedido, PedidoCreateRequest } from "@/types/checkout";
 
 export const orderService = {
   create: async (data: PedidoCreateRequest): Promise<Pedido> => {

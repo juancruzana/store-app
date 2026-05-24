@@ -1,7 +1,7 @@
 import { UtensilsCrossed, Home, ClipboardList, ShoppingCart } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import { useCartStore } from "@/features/cart/store/useCartStore";
-import { useCartDrawerStore } from "@/features/cart/store/useCartDrawerStore";
+import { useCartStore } from "@/stores/useCartStore";
+import { useCartDrawerStore } from "@/stores/useCartDrawerStore";
 import { Badge } from "@/shared/ui/Badge";
 
 export function Navbar() {

@@ -1,9 +1,9 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { PageWrapper } from "@/shared/layout/PageWrapper";
-import HomePage from "@/features/catalog/pages/HomePage";
-import ProductPage from "@/features/catalog/pages/ProductPage";
-import CartPage from "@/features/cart/pages/CartPage";
-import OrdersPage from "@/features/orders/pages/OrdersPage";
+import HomePage from "@/pages/HomePage";
+import ProductPage from "@/pages/ProductPage";
+import CartPage from "@/pages/CartPage";
+import OrdersPage from "@/pages/OrdersPage";
 
 export default function AppRouter() {
   return (
