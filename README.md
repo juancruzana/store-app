@@ -115,3 +115,9 @@ src/
 - **Services:** sufijo `Service` → `productService.ts`
 - **Stores:** `use` + `Store` → `useCartStore.ts`
 - **Types:** `PascalCase` → `Product`, `CartItem`
+
+---
+
+## Presentación
+
+Para una explicación completa del proyecto, podés ver el video de presentación en youtube: https://www.youtube.com/watch?v=b4mTVZgxGHw
