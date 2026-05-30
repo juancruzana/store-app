@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Navbar } from "./Navbar";
 import { BottomNav } from "./BottomNav";
-import { CartDrawer } from "@/components/cart/CartDrawer";
+import { CartDrawer } from "@/modules/cart/components/CartDrawer";
 
 export function PageWrapper() {
   return (

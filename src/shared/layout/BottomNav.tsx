@@ -1,6 +1,6 @@
 import { Home, ClipboardList, ShoppingCart } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useCartStore } from "@/stores/useCartStore";
+import { useCartStore } from "@/modules/cart/stores/useCartStore";
 import { Badge } from "@/shared/ui/Badge";
 
 export function BottomNav() {
