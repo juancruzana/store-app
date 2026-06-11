@@ -8,11 +8,11 @@ import { useAuthStore } from "./modules/auth/stores/useAuthStore";
 
 function Root() {
   const [ready, setReady] = React.useState(false);
-  const init = useAuthStore((s) => s.init);
+  const checkAuth = useAuthStore((s) => s.checkAuth);
 
   React.useEffect(() => {
-    init().finally(() => setReady(true));
-  }, [init]);
+    checkAuth().finally(() => setReady(true));
+  }, [checkAuth]);
 
   if (!ready) {
     return (
