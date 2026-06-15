@@ -1,4 +1,4 @@
-import { UtensilsCrossed, Home, ClipboardList, ShoppingCart, LogIn, LogOut } from "lucide-react";
+import { UtensilsCrossed, Home, ClipboardList, ShoppingCart, LogIn, LogOut, User } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useCartStore } from "@/modules/cart/stores/useCartStore";
 import { useCartDrawerStore } from "@/modules/cart/stores/useCartDrawerStore";
@@ -43,6 +43,12 @@ export function Navbar() {
           <ClipboardList className="w-5 h-5" />
           Mis pedidos
         </NavLink>
+        {isAuthenticated && (
+          <NavLink to="/cuenta" className={linkClass}>
+            <User className="w-5 h-5" />
+            Mi cuenta
+          </NavLink>
+        )}
         <button
           onClick={toggle}
           className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-100 transition"

@@ -1,4 +1,4 @@
-import { Home, ClipboardList, ShoppingCart } from "lucide-react";
+import { Home, ClipboardList, ShoppingCart, User } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useCartStore } from "@/modules/cart/stores/useCartStore";
 import { Badge } from "@/shared/ui/Badge";
@@ -34,6 +34,13 @@ export function BottomNav() {
         </span>
         Carrito
       </button>
+      <NavLink
+        to="/cuenta"
+        className={({ isActive }) => `${base} ${isActive ? active : inactive}`}
+      >
+        <User className="w-6 h-6" />
+        Cuenta
+      </NavLink>
     </nav>
   );
 }

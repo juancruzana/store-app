@@ -11,6 +11,7 @@ import PaymentPage from "@/modules/checkout/pages/PaymentPage";
 import PaymentResultPage from "@/modules/checkout/pages/PaymentResultPage";
 import LoginPage from "@/modules/auth/pages/LoginPage";
 import RegisterPage from "@/modules/auth/pages/RegisterPage";
+import AccountPage from "@/modules/account/pages/AccountPage";
 
 export default function AppRouter() {
   return (
@@ -28,6 +29,7 @@ export default function AppRouter() {
 
           {/* Rutas que requieren auth */}
           <Route element={<ProtectedRoute />}>
+            <Route path="/cuenta" element={<AccountPage />} />
             <Route path="/pedidos" element={<OrdersPage />} />
             <Route path="/pedidos/:id" element={<OrderDetailPage />} />
             <Route path="/pedidos/:id/pago/:status" element={<PaymentResultPage />} />

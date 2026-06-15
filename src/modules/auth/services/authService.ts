@@ -18,9 +18,20 @@ export interface RegisterRequest {
   telefono?: string;
 }
 
+export interface PerfilUpdateRequest {
+  nombre?: string;
+  apellido?: string;
+  telefono?: string | null;
+}
+
 export const authService = {
   me: async (): Promise<Usuario> => {
     const { data } = await api.get<Usuario>("/api/v1/auth/me");
+    return data;
+  },
+
+  updateProfile: async (datos: PerfilUpdateRequest): Promise<Usuario> => {
+    const { data } = await api.patch<Usuario>("/api/v1/auth/me", datos);
     return data;
   },
 

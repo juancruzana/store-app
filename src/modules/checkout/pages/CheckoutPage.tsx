@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useCartStore } from "@/modules/cart/stores/useCartStore";
@@ -9,13 +9,17 @@ export default function CheckoutPage() {
   const navigate = useNavigate();
   const items = useCartStore((s) => s.items);
 
+  // Solo rebotamos a /cart si se entró al checkout con el carrito ya vacío.
+  // No cuando el carrito se vacía por un pedido exitoso (ahí navegamos a /pago o /pedidos).
+  const estabaVacioAlEntrar = useRef(items.length === 0);
+
   useEffect(() => {
-    if (items.length === 0) {
+    if (estabaVacioAlEntrar.current) {
       navigate("/cart", { replace: true });
     }
-  }, [items.length, navigate]);
+  }, [navigate]);
 
-  if (items.length === 0) return null;
+  if (estabaVacioAlEntrar.current) return null;
 
   return (
     <div className="space-y-4 pb-8">

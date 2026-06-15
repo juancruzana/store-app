@@ -1,5 +1,9 @@
 import { create } from "zustand";
-import { authService, type Usuario } from "../services/authService";
+import {
+  authService,
+  type PerfilUpdateRequest,
+  type Usuario,
+} from "../services/authService";
 
 interface AuthState {
   user: Usuario | null;
@@ -10,6 +14,7 @@ interface AuthState {
   checkAuth: () => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
+  updateProfile: (datos: PerfilUpdateRequest) => Promise<void>;
   clearSession: () => void;
   setError: (msg: string | null) => void;
 }
@@ -55,5 +60,17 @@ export const useAuthStore = create<AuthState>()((set) => ({
       // Si falla la red, limpiamos igualmente
     }
     set({ user: null, isAuthenticated: false, error: null, isLoading: false });
+  },
+
+  updateProfile: async (datos) => {
+    set({ error: null });
+    try {
+      const user = await authService.updateProfile(datos);
+      set({ user });
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : "No se pudo actualizar el perfil";
+      set({ error: msg });
+      throw e;
+    }
   },
 }));
