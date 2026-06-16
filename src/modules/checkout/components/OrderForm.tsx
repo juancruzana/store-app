@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useFormasPago } from "../hooks/useFormasPago";
 import { useDirecciones } from "../hooks/useDirecciones";
 import { useCreateOrder } from "../hooks/useCheckout";
@@ -7,6 +8,7 @@ import { Spinner } from "@/shared/ui/Spinner";
 import type { FormaPago } from "../types";
 
 export function OrderForm() {
+  const navigate = useNavigate();
   const { data: formasPago, isLoading: loadingPago } = useFormasPago();
   const { list: { data: direcciones, isLoading: loadingDir, error: errorDir } } = useDirecciones();
   const items = useCartStore((s) => s.items);
@@ -59,7 +61,18 @@ export function OrderForm() {
             </p>
           </>
         ) : (
-          <p className="text-sm text-gray-400">Sin dirección guardada</p>
+          <div className="space-y-2">
+            <p className="text-sm text-gray-400">
+              No tenés una dirección de entrega. Necesitás una para poder pagar.
+            </p>
+            <button
+              type="button"
+              onClick={() => navigate("/cuenta")}
+              className="text-sm font-semibold text-indigo-600 hover:text-indigo-700"
+            >
+              + Agregar dirección de entrega
+            </button>
+          </div>
         )}
       </div>
 
