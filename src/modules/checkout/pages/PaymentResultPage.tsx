@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import { pagoService } from "../services/pagoService";
 
 const RESULT_CONFIG = {
   success: {
@@ -25,6 +26,7 @@ const RESULT_CONFIG = {
 
 export default function PaymentResultPage() {
   const { id, status } = useParams<{ id: string; status: string }>();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const qc = useQueryClient();
 
@@ -32,9 +34,25 @@ export default function PaymentResultPage() {
     RESULT_CONFIG[status as keyof typeof RESULT_CONFIG] ?? RESULT_CONFIG.pending;
 
   useEffect(() => {
-    // Refrescar los pedidos para reflejar el nuevo estado
-    qc.invalidateQueries({ queryKey: ["pedidos"] });
-  }, [qc]);
+    if (!id) return;
+    const pedidoId = Number(id);
+    // MP agrega payment_id/collection_id al redirigir
+    const pidRaw = searchParams.get("payment_id") || searchParams.get("collection_id");
+    const paymentId = pidRaw ? Number(pidRaw) : undefined;
+
+    // El status de la URL es solo la pista de MP, NO la verdad. Confirmamos
+    // activamente contra el backend: consulta el estado real a MP y pasa el
+    // pedido a CONFIRMADO si el pago fue aprobado (no depende del webhook, que
+    // en local sin URL pública no llega).
+    const sincronizar =
+      status === "success" || status === "pending"
+        ? pagoService.confirmPayment(pedidoId, paymentId)
+        : Promise.resolve(null);
+
+    sincronizar
+      .catch(() => undefined)
+      .finally(() => qc.invalidateQueries({ queryKey: ["pedidos"] }));
+  }, [id, status, searchParams, qc]);
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
