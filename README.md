@@ -1,5 +1,8 @@
 # Food Store — store-app
 
+
+Link video : https://youtu.be/LHqjPND06Gs
+
 Frontend del cliente final para la tienda de food delivery. Permite navegar el catálogo, ver el detalle de productos con ingredientes, gestionar el carrito y confirmar pedidos.
 
 > Sistema compuesto por tres repositorios:
